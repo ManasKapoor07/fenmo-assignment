@@ -1,4 +1,34 @@
-export default function ExpenseList({ expenses }) {
+export default function ExpenseList({ expenses, loading }) {
+  
+  if (loading) {
+    return (
+      <div className="bg-white border rounded-lg overflow-hidden animate-pulse">
+
+        <div className="hidden sm:grid grid-cols-4 px-4 py-3 bg-gray-50 border-b">
+          <div className="h-3 bg-gray-200 rounded w-20"></div>
+          <div className="h-3 bg-gray-200 rounded w-32"></div>
+          <div className="h-3 bg-gray-200 rounded w-24"></div>
+          <div className="h-3 bg-gray-200 rounded w-16 ml-auto"></div>
+        </div>
+
+        {/* Rows */}
+        <div className="divide-y">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="p-4 sm:p-3 sm:grid sm:grid-cols-4 gap-3"
+            >
+              <div className="h-4 bg-gray-200 rounded w-24"></div>
+              <div className="h-4 bg-gray-200 rounded w-40"></div>
+              <div className="h-4 bg-gray-200 rounded w-28"></div>
+              <div className="h-4 bg-gray-200 rounded w-16 ml-auto"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   if (!expenses.length) {
     return (
       <div className="text-center py-12 text-gray-400 text-sm">
@@ -18,14 +48,12 @@ export default function ExpenseList({ expenses }) {
       </div>
 
       <div className="divide-y">
-
         {expenses.map((e) => (
           <div
             key={e.id}
             className="p-4 sm:p-3 sm:grid sm:grid-cols-4 sm:items-center hover:bg-gray-50 transition"
           >
 
-            {/* 🟢 Mobile Layout */}
             <div className="sm:hidden space-y-1">
               <div className="flex justify-between items-center">
                 <span className="font-medium text-gray-900">
@@ -63,7 +91,6 @@ export default function ExpenseList({ expenses }) {
 
           </div>
         ))}
-
       </div>
     </div>
   );

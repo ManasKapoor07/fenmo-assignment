@@ -9,28 +9,38 @@ export default function Dashboard() {
   const [expenses, setExpenses] = useState([]);
   const [category, setCategory] = useState("");
   const [sort, setSort] = useState("desc");
+  const [loading, setLoading] = useState(false); 
+  const [error, setError] = useState(""); 
 
   const fetchExpenses = async () => {
-    let url = "/expenses?";
-    if (category) url += `category=${category}&`;
-    if (sort) url += `sort=${sort}`;
+    try {
+      setLoading(true);
+      setError("");
 
-    const res = await API.get(url);
-    setExpenses(res.data);
+      let url = "/expenses?";
+      if (category) url += `category=${category}&`;
+      if (sort) url += `sort=${sort}`;
+
+      const res = await API.get(url);
+      setExpenses(res.data);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load expenses");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchExpenses();
   }, [category, sort]);
 
-  const total = expenses.reduce((sum, e) => sum + e.amount, 0);
-
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-3xl mx-auto space-y-6">
 
         <h1 className="text-3xl font-bold text-center">
-           Expense Tracker
+          Expense Tracker
         </h1>
 
         <div className="bg-white p-5 rounded-xl shadow">
@@ -45,10 +55,16 @@ export default function Dashboard() {
           />
         </div>
 
-        <TotalCard  expenses={expenses}/>
+        <TotalCard expenses={expenses} />
+
+        {error && (
+          <div className="text-sm text-red-500 text-center">
+            {error}
+          </div>
+        )}
 
         <div className="bg-white p-5 rounded-xl shadow">
-          <ExpenseList expenses={expenses} />
+          <ExpenseList expenses={expenses} loading={loading} />
         </div>
 
       </div>
