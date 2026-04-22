@@ -6,7 +6,7 @@ A minimal full-stack expense tracking application built with a focus on **correc
 
 ## 🚀 Live Demo
 
-- Frontend: https://fenmo-assignment-4hjrvfsci-manaskapoor07s-projects.vercel.app  
+- Frontend: https://fenmo-assignment-five.vercel.app
 - Backend: https://fenmo-assignment-4v21.onrender.com  
 
 > ⚠️ Note: Backend is hosted on free tier and may take ~30 seconds to wake up.
