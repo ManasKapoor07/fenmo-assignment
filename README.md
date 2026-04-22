@@ -125,3 +125,18 @@ Run tests:
 
 ```bash
 npm run test
+
+```
+## 📦 Setup Instructions
+
+### 1. Backend Setup
+```bash
+cd server
+npm install
+npm run dev
+```
+### 2. Frontend Setup
+```bash
+cd client
+npm install
+npm run dev
